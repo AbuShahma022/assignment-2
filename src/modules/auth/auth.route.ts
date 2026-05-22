@@ -4,6 +4,7 @@ const router = Router()
 
 
 router.post("/auth/signup", authController.User_Registration)
+router.post("/auth/login", authController.User_Login)
 
 
 
