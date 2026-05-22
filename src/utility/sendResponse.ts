@@ -5,7 +5,7 @@ type TResponse<T> = {
     success: boolean
     message: string
     data?: T
-    error?: unknown
+    errors?: unknown
 }
 
 export const sendResponse = <T>(
@@ -19,7 +19,7 @@ export const sendResponse = <T>(
             success: responseData.success,
             message: responseData.message,
             data: responseData.data,
-            error: responseData.error
+            errors: responseData.errors
         })
 
 }
