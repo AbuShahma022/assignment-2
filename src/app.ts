@@ -2,6 +2,7 @@ import express, { type Application, type Request, type Response } from 'express'
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from './middleware/globalErrorhadler.js';
+import { authRouter } from './modules/auth/auth.route.js';
 
 const app : Application = express();
 app.use (cookieParser())
@@ -12,6 +13,8 @@ app.get('/', (req : Request, res : Response) => {
     "message": "welcome to my API"
   })
 })
+
+app.use("/api",authRouter)
 
 
 app.use(globalErrorHandler)
