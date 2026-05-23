@@ -27,9 +27,9 @@ const Create_Issue = async (req:Request,res:Response) => {
 }
 
 
-const Get_All_Issues = (req:Request,res:Response) => {
+const Get_All_Issues = async(req:Request,res:Response) => {
     try {
-        const result = issueService.Get_All_Issues()
+        const result = await issueService.Get_All_Issues()
 
         sendResponse(res,{
             statusCode: 200,

@@ -25,7 +25,48 @@ const Create_Issue = async (payload: IIssue, userId: number) => {
   return result.rows[0];
 };
 
-const Get_All_Issues = async () => {};
+const Get_All_Issues = async () => {
+  const result = await pool.query(`
+        SELECT * FROM issues
+       
+        `)
+
+      if (result.rows.length === 0) {
+        throw new Error("No issues found");
+      }
+
+      const issues = result.rows;
+      
+
+      const reporterIds = issues.map((issue) => issue.reporter_id);
+      const uniqueReporterIds = [...new Set(reporterIds)];
+
+      const userResult = await pool.query(`
+        SELECT id, name, role FROM users WHERE id = ANY($1)
+        
+        `, [uniqueReporterIds]);
+
+        const reportMap = new Map(
+          userResult.rows.map((user) => [user.id, user])
+        );
+
+        const issuesWithReporters = issues.map((issue) => {
+          return {
+            id: issue.id,
+            title: issue.title,
+            description: issue.description,
+            type: issue.type,
+            status: issue.status,            
+            reporter: reportMap.get(issue.reporter_id),
+            created_at: issue.created_at,
+            updated_at: issue.updated_at
+          }
+        })
+
+        return issuesWithReporters;
+
+
+};
 
 const Get_Single_Issue = async (issueId: string) => {
   const issueResult = await pool.query(
