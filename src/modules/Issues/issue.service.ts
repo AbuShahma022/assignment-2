@@ -47,7 +47,18 @@ const Get_All_Issues = async (query: queryType) => {
   }
 
   queryStr += `ORDER BY created_at ${sort === "oldest" ? "ASC" : "DESC"}`;
+/*
+SELECT *
+  FROM issues
+   WHERE type=$1
+   AND status=$2
+   ORDER BY created_at ASC
+  
+   Values:
+  
+   ["bug","open"]
 
+*/
   const result = await pool.query(queryStr, values);
 
   if (result.rows.length === 0) {

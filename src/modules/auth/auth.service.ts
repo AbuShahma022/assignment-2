@@ -11,7 +11,7 @@ const User_RegistrationService = async (userData : IRegister) => {
 
     const result = await pool.query(`
         INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *
-        `,[name, email, hashPassword, role])
+        `,[name, email, hashPassword, role ?? "contributor"])
 
         delete result.rows[0].password
 

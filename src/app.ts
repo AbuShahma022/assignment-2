@@ -8,10 +8,13 @@ import { issueRouter } from './modules/Issues/issue.route.js';
 const app : Application = express();
 app.use (cookieParser())
 app.use(express.json())
+app.use (cors({
+    origin: "*",
+}))
 
 app.get('/', (req : Request, res : Response) => {
   res.status(200).json ({
-    "message": "welcome to my API"
+    "message": "welcome to my assignment-2 API"
   })
 })
 
