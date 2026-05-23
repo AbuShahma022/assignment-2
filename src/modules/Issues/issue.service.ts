@@ -161,6 +161,11 @@ const Update_Issue = async (
     throw new Error("this issue is already closed");
   }
 
+  if (user.role !== "maintainer" && status !== undefined){
+    throw new Error("Only maintainers can update the status");
+
+  }
+
   const result = await pool.query(
     `
 
