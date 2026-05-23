@@ -10,7 +10,7 @@ const auth = (...ROLES : ROLE[])=>{
         try {
             const token = req.headers.authorization
             if (!token) {
-                sendResponse(res,{
+              return  sendResponse(res,{
                     statusCode: 401,
                     success: false,
                     message: "Unauthorized Access",
@@ -19,11 +19,12 @@ const auth = (...ROLES : ROLE[])=>{
 
             // Verify the token
             const decoded = jwt.verify(token as string, config.jwtSecret as string) as JwtPayload
+            
             req.user = decoded
 
             //Role cheking
             if (!ROLES.includes(decoded.role)) {
-                sendResponse(res,{
+              return  sendResponse(res,{
                     statusCode: 403,
                     success: false,
                     message: "Forbidden Access",
@@ -34,7 +35,7 @@ const auth = (...ROLES : ROLE[])=>{
 
             
         } catch (error) {
-            sendResponse(res,{
+            return sendResponse(res,{
                 statusCode: 500,
                 success: false,
                 message: "Internal Server Error",

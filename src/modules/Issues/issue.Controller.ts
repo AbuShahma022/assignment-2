@@ -29,7 +29,7 @@ const Create_Issue = async (req:Request,res:Response) => {
 
 const Get_All_Issues = async(req:Request,res:Response) => {
     try {
-        const result = await issueService.Get_All_Issues()
+        const result = await issueService.Get_All_Issues(req.query)
 
         sendResponse(res,{
             statusCode: 200,
@@ -75,11 +75,58 @@ const Get_Single_Issue =  async(req:Request,res:Response) => {
 }
 
 
+const Update_Issue = async(req:Request,res:Response) => {
+    try {
+        const {id} = req.params;
+        const result = await issueService.Update_Issue(id as string, req.body,{id:req.user?.id, role:req.user?.role })
+        sendResponse(res,{        
+            statusCode: 200,        
+            success: true,        
+            message: "Issue updated successfully",        
+            data: result,        
+        })
+        
+    } catch (error) {
+        sendResponse(res,{
+            statusCode: 500,
+            success: false,
+            message: "Failed to update issue",
+            errors: error instanceof Error ? error.message : error,
+        })
+    }
+}
+
+
+const Delete_Issue = async(req:Request,res:Response) => {
+    try {
+        const {id} = req.params;
+        await issueService.Delete_Issue(id as string)
+        sendResponse(res,{        
+            statusCode: 200,        
+            success: true,        
+            message: "Issue deleted successfully",        
+        })
+        
+    } catch (error) {
+        sendResponse(res,{
+            statusCode: 500,
+            success: false,
+            message: "Failed to delete issue",
+            errors: error instanceof Error ? error.message : error,
+        })
+    }
+}
+
+
+
+
 
 
 
 export const issueController = {
     Create_Issue,
     Get_All_Issues,
-    Get_Single_Issue
+    Get_Single_Issue,
+    Update_Issue,
+    Delete_Issue
 }
