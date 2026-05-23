@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from './middleware/globalErrorhadler.js';
 import { authRouter } from './modules/auth/auth.route.js';
+import { issueRouter } from './modules/Issues/issue.route.js';
 
 const app : Application = express();
 app.use (cookieParser())
@@ -15,6 +16,7 @@ app.get('/', (req : Request, res : Response) => {
 })
 
 app.use("/api",authRouter)
+app.use("/api",issueRouter)
 
 
 app.use(globalErrorHandler)
