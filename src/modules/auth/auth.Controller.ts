@@ -31,14 +31,14 @@ const User_Login = async (req: Request, res: Response) => {
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "User login successful",
+      message: "Login successful",
       data: result,
     });
   } catch (error) {
     sendResponse(res, {
       statusCode: 500,
       success: false,
-      message: "User login failed",
+      message: "Login failed",
       errors: error instanceof Error ? error.message : error,
     });
   }
