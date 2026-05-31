@@ -6,6 +6,9 @@ A role-based  REST API built with **Express.js, TypeScript, PostgreSQL, and JWT 
 
 https://assignment-2-0ucx.onrender.com
 
+## updated Live URL 
+https://assignment-2-production-f6ab.up.railway.app
+
 ---
 
 # Features
